@@ -7,25 +7,27 @@ class L < Formula
   on_macos do
     if Hardware::CPU.intel?
       url "https://github.com/imdevan/l/releases/download/v0.3.0/l-darwin-amd64.tar.gz"
-      sha256 "c6dfa9f3f17463704fbeeb5be82b8dbbceb6c9934d192a7d53bbca5c9ded967a"
+      sha256 "0a7028207d53b8e2da582bf7616078cfaa97cbe3fa56b4c795a8cc32decb133c"
     elsif Hardware::CPU.arm?
       url "https://github.com/imdevan/l/releases/download/v0.3.0/l-darwin-arm64.tar.gz"
-      sha256 "8d66754b8799e64a8d9f4287fbd573fa17c75cfec336e907f19cfa49a17d151f"
+      sha256 "946a98ab3e7489c25e5b60007ef5af6bc47654f363d377206da6179af90eb8cb"
     end
   end
 
   on_linux do
     if Hardware::CPU.intel?
       url "https://github.com/imdevan/l/releases/download/v0.3.0/l-linux-amd64.tar.gz"
-      sha256 "59ca517fc81cefe20dcba026fb46f7aa241d33f9bb8821e6e6b484b32b0e40c1"
+      sha256 "23d3d0dc7825a7b4cfb0db3bc244c619e4e210d5d526b1739b2f1ededffc823e"
     elsif Hardware::CPU.arm?
       url "https://github.com/imdevan/l/releases/download/v0.3.0/l-linux-arm64.tar.gz"
-      sha256 "9ac8e26ff761b7900be9bca3ff2cfb006bbaf5766abf14cf56ae8116d79bedc2"
+      sha256 "e72a8393aab5b007fce1f9672a5d84d5dbf3c60c0a9ca8cb9b6ad2440ea82925"
     end
   end
 
   def install
-    bin.install "l"
+    binary = OS.mac? ? "l-darwin-" : "l-linux-"
+    binary += Hardware::CPU.intel? ? "amd64" : "arm64"
+    bin.install binary => "l"
   end
 
   test do
